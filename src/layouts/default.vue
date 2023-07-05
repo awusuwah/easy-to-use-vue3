@@ -9,6 +9,7 @@
 
   <!-- Include global components -->
   <AllIcons />
+  <ThemeColors />
 </template>
 
 <script setup lang="ts">
@@ -16,6 +17,7 @@ import { computed } from "vue";
 
 import AllIcons from "../components/icon/AllIcons.vue";
 import Navigation from "../components/navigation/Navigation.vue";
+import ThemeColors from "../components/themeColors/ThemeColors.vue";
 import { useStateStore } from "../store/state.store";
 
 // Computed

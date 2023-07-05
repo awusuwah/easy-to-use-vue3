@@ -22,6 +22,11 @@ export const useStateStore = defineStore("state", () => {
   const closeNavMobile = () => (navMobileOpen.value = false);
   const toggleNavMobile = () => (navMobileOpen.value = !navMobileOpen.value);
 
+  // Darkmode
+  const darkMode = ref(true);
+  const getDarkMode = computed(() => darkMode.value);
+  const setDarkMode = (value: boolean) => (darkMode.value = value);
+
   return {
     // Navigation
     navOpen,
@@ -36,5 +41,10 @@ export const useStateStore = defineStore("state", () => {
     openNavMobile,
     closeNavMobile,
     toggleNavMobile,
+
+    // Darkmode
+    darkMode,
+    getDarkMode,
+    setDarkMode,
   };
 });

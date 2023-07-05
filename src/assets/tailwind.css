@@ -1,3 +1,51 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer components {
+  @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto:wght@300;400;500;700;900&display=swap");
+
+  .component-group {
+    @apply flex flex-col sm:flex-row gap-x-2 gap-y-3;
+  }
+  .gradient-offer {
+    @apply text-white bg-gradient-to-r from-offer via-thm to-thm;
+  }
+  .gradient-supplier {
+    @apply text-white bg-gradient-to-r from-supplier via-thm to-thm;
+  }
+  .gradient-accommodation {
+    @apply text-white bg-gradient-to-r from-accommodation via-thm to-thm;
+  }
+
+  .skeleton {
+    @apply h-5 rounded-md bg-txt-800 animate-pulse;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply rounded-lg bg-bgr-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-lg bg-bgr-300;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-bgr-500;
+  }
+  body {
+    scrollbar-gutter: stable;
+    @apply overflow-y-scroll;
+  }
+
+  pre {
+    font-family: "Operator Mono", "Dank Mono", "iA Writer Mono S", "Cascadia Mono", "Courier New", Courier, monospace;
+    font-size: smaller;
+    background-color: honeydew;
+    color: darkslategrey;
+    padding-inline: 1em;
+    padding-block: 0.25em;
+    display: inline-block;
+  }
+}

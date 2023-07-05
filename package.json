@@ -17,7 +17,9 @@
     "tailwindcss": "^3.3.2"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.18",
     "@pinia/nuxt": "^0.4.11",
-    "pinia": "^2.1.4"
+    "pinia": "^2.1.4",
+    "ui-components-3": "^0.0.5"
   }
 }
