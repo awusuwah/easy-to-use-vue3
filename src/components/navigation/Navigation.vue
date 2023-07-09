@@ -27,12 +27,40 @@
           </ul>
 
           <!-- TODO: Implemnent the NavigationContextMenu -->
+          <section class="flex items-center justify-between px-4 pb-4 mt-auto text-thm">
+            <div class="flex items-center gap-6">
+              <Menu />
+            </div>
+
+            <!-- Connection Status -->
+            <output v-if="stateStore.getNavOpen" class="flex items-center mt-2 space-x-2" :class="true ? 'text-suc' : 'text-err'">
+              <WifiIcon class="inline-block w-5 h-5" />
+
+              <span class="hidden font-semibold select-none md:block">
+                {{ true ? "Online" : "Offline" }}
+              </span>
+            </output>
+          </section>
         </div>
 
         <!-- The button to toggle between the collapsed and expanded navigation -->
-        <Button variant="neutral" class="absolute right-0 bottom-20 px-2 border-r-0 rounded-none rounded-l-lg mx:px-2 md:block" outlined @click="toggleNav">
-          <ChevronLeftIcon v-if="stateStore.getNavOpen" class="block w-4 h-4 m-0" />
-          <ChevronRightIcon v-else class="block w-4 h-4 m-0" />
+        <Button
+          v-if="stateStore.getNavOpen"
+          variant="neutral"
+          class="absolute right-0 bottom-20 px-2 border-r-0 rounded-none rounded-l-lg mx:px-2 md:block"
+          outlined
+          @click="stateStore.closeNav()"
+        >
+          <ChevronLeftIcon class="block w-4 h-4 m-0" />
+        </Button>
+        <Button
+          v-else
+          variant="neutral"
+          class="absolute right-0 bottom-20 px-2 border-r-0 rounded-none rounded-l-lg mx:px-2 md:block"
+          outlined
+          @click="stateStore.openNav()"
+        >
+          <ChevronRightIcon class="block w-4 h-4 m-0" />
         </Button>
       </nav>
     </div>
@@ -41,10 +69,11 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
-import { ChartPieIcon, ChevronLeftIcon, ChevronRightIcon, DocumentTextIcon, HomeIcon, UserGroupIcon } from "@heroicons/vue/24/outline";
+import { ChartPieIcon, ChevronLeftIcon, ChevronRightIcon, DocumentTextIcon, HomeIcon, UserGroupIcon, WifiIcon } from "@heroicons/vue/24/outline";
 import { Button } from "ui-components-3";
 
 import Icon from "../icon/Icon.vue";
+import Menu from "../menu/Menu.vue";
 import NavigationItem from "./NavigationItem.vue";
 import { useStateStore } from "../../store/state.store";
 
@@ -79,16 +108,4 @@ const navClasses = computed(() => ({
   "z-10 shadow-2xl md:shadow-none md:contents bg-bgr": true,
   "mobile-open": stateStore.getNavMobileOpen,
 }));
-
-/**
- * Handle what happens when the user clicks on the button which toggles the navigation between collapsed and expanded.
- */
-const toggleNav = () => {
-  if (useStateStore().getNavOpen) {
-    stateStore.openNav();
-    return;
-  }
-
-  stateStore.closeNav();
-};
 </script>

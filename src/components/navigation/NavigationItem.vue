@@ -31,11 +31,13 @@ const itemClasses = computed(() => ({
 
   // Dashboard
   "bg-thm text-thm-contrast": props.section === "dashboard" && currentRoute.value.includes("/dashboard"),
-  "bg-bgr text-txt-400 hover:text-thm hover:bg-bgr-50 hover:shadow-[inset_-2px_0_var(--color-thm)]": props.section === "dashboard" && !currentRoute.value.includes("/dashboard"),
+  "bg-bgr text-txt-400 hover:text-thm hover:bg-bgr-50 hover:shadow-[inset_-2px_0_var(--color-thm)]":
+    props.section === "dashboard" && !currentRoute.value.includes("/dashboard"),
 
   // Offers
   "bg-offer text-white": props.section === "offers" && currentRoute.value.includes("/offers"),
-  "bg-bgr text-txt-400 hover:text-offer hover:bg-bgr-50 hover:shadow-[inset_-2px_0_var(--color-offer)]": props.section === "offers" && !currentRoute.value.includes("/offers"),
+  "bg-bgr text-txt-400 hover:text-offer hover:bg-bgr-50 hover:shadow-[inset_-2px_0_var(--color-offer)]":
+    props.section === "offers" && !currentRoute.value.includes("/offers"),
 
   // Suppliers
   "bg-supplier text-white": props.section === "suppliers" && currentRoute.value.includes("/suppliers"),

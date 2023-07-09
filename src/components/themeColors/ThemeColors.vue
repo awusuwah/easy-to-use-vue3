@@ -1,7 +1,7 @@
 <template></template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { useStateStore } from "../../store/state.store";
 
 // The colors for the dark theme
@@ -184,96 +184,114 @@ const lightTheme = {
   accommodation: "#006594",
 };
 
+// Get if the current theme is dark or not
 const darkMode = computed(() => {
   return useStateStore().getDarkMode;
 });
 
-onMounted(() => {
-  document.documentElement.style.setProperty("--color-cta", darkMode ? darkTheme.cta : lightTheme.cta);
-  document.documentElement.style.setProperty("--color-cta-hover", darkMode ? darkTheme.ctaHover : lightTheme.ctaHover);
-  document.documentElement.style.setProperty("--color-cta-active", darkMode ? darkTheme.ctaActive : lightTheme.ctaActive);
-  document.documentElement.style.setProperty("--color-cta-contrast", darkMode ? darkTheme.ctaContrast : lightTheme.ctaContrast);
-  document.documentElement.style.setProperty("--color-cta-light", darkMode ? darkTheme.ctaLight : lightTheme.ctaLight);
-  document.documentElement.style.setProperty("--color-cta-light-hover", darkMode ? darkTheme.ctaLightHover : lightTheme.ctaLightHover);
-  document.documentElement.style.setProperty("--color-cta-light-active", darkMode ? darkTheme.ctaLightActive : lightTheme.ctaLightActive);
-  document.documentElement.style.setProperty("--color-cta-light-contrast", darkMode ? darkTheme.ctaLightContrast : lightTheme.ctaLightContrast);
+/**
+ * Updates the theme variables. Which theme is loaded depends on the current `darkMode` value.
+ */
+function updateThemeVariables() {
+  document.documentElement.style.setProperty("--color-cta", darkMode.value ? darkTheme.cta : lightTheme.cta);
+  document.documentElement.style.setProperty("--color-cta-hover", darkMode.value ? darkTheme.ctaHover : lightTheme.ctaHover);
+  document.documentElement.style.setProperty("--color-cta-active", darkMode.value ? darkTheme.ctaActive : lightTheme.ctaActive);
+  document.documentElement.style.setProperty("--color-cta-contrast", darkMode.value ? darkTheme.ctaContrast : lightTheme.ctaContrast);
+  document.documentElement.style.setProperty("--color-cta-light", darkMode.value ? darkTheme.ctaLight : lightTheme.ctaLight);
+  document.documentElement.style.setProperty("--color-cta-light-hover", darkMode.value ? darkTheme.ctaLightHover : lightTheme.ctaLightHover);
+  document.documentElement.style.setProperty("--color-cta-light-active", darkMode.value ? darkTheme.ctaLightActive : lightTheme.ctaLightActive);
+  document.documentElement.style.setProperty("--color-cta-light-contrast", darkMode.value ? darkTheme.ctaLightContrast : lightTheme.ctaLightContrast);
 
-  document.documentElement.style.setProperty("--color-highlight", darkMode ? darkTheme.highlight : lightTheme.highlight);
-  document.documentElement.style.setProperty("--color-highlight-hover", darkMode ? darkTheme.highlightHover : lightTheme.highlightHover);
-  document.documentElement.style.setProperty("--color-highlight-active", darkMode ? darkTheme.highlightActive : lightTheme.highlightActive);
-  document.documentElement.style.setProperty("--color-highlight-contrast", darkMode ? darkTheme.highlightContrast : lightTheme.highlightContrast);
-  document.documentElement.style.setProperty("--color-highlight-light", darkMode ? darkTheme.highlightLight : lightTheme.highlightLight);
-  document.documentElement.style.setProperty("--color-highlight-light-hover", darkMode ? darkTheme.highlightLightHover : lightTheme.highlightLightHover);
-  document.documentElement.style.setProperty("--color-highlight-light-active", darkMode ? darkTheme.highlightLightActive : lightTheme.highlightLightActive);
-  document.documentElement.style.setProperty("--color-highlight-light-contrast", darkMode ? darkTheme.highlightLightContrast : lightTheme.highlightLightContrast);
+  document.documentElement.style.setProperty("--color-highlight", darkMode.value ? darkTheme.highlight : lightTheme.highlight);
+  document.documentElement.style.setProperty("--color-highlight-hover", darkMode.value ? darkTheme.highlightHover : lightTheme.highlightHover);
+  document.documentElement.style.setProperty("--color-highlight-active", darkMode.value ? darkTheme.highlightActive : lightTheme.highlightActive);
+  document.documentElement.style.setProperty("--color-highlight-contrast", darkMode.value ? darkTheme.highlightContrast : lightTheme.highlightContrast);
+  document.documentElement.style.setProperty("--color-highlight-light", darkMode.value ? darkTheme.highlightLight : lightTheme.highlightLight);
+  document.documentElement.style.setProperty("--color-highlight-light-hover", darkMode.value ? darkTheme.highlightLightHover : lightTheme.highlightLightHover);
+  document.documentElement.style.setProperty(
+    "--color-highlight-light-active",
+    darkMode.value ? darkTheme.highlightLightActive : lightTheme.highlightLightActive
+  );
+  document.documentElement.style.setProperty(
+    "--color-highlight-light-contrast",
+    darkMode ? darkTheme.highlightLightContrast : lightTheme.highlightLightContrast
+  );
 
-  document.documentElement.style.setProperty("--color-theme", darkMode ? darkTheme.theme : lightTheme.theme);
-  document.documentElement.style.setProperty("--color-theme-hover", darkMode ? darkTheme.themeHover : lightTheme.themeHover);
-  document.documentElement.style.setProperty("--color-theme-active", darkMode ? darkTheme.themeActive : lightTheme.themeActive);
-  document.documentElement.style.setProperty("--color-theme-contrast", darkMode ? darkTheme.themeContrast : lightTheme.themeContrast);
-  document.documentElement.style.setProperty("--color-theme-light", darkMode ? darkTheme.themeLight : lightTheme.themeLight);
-  document.documentElement.style.setProperty("--color-theme-light-hover", darkMode ? darkTheme.themeLightHover : lightTheme.themeLightHover);
-  document.documentElement.style.setProperty("--color-theme-light-active", darkMode ? darkTheme.themeLightActive : lightTheme.themeLightActive);
-  document.documentElement.style.setProperty("--color-theme-light-contrast", darkMode ? darkTheme.themeLightContrast : lightTheme.themeLightContrast);
+  document.documentElement.style.setProperty("--color-theme", darkMode.value ? darkTheme.theme : lightTheme.theme);
+  document.documentElement.style.setProperty("--color-theme-hover", darkMode.value ? darkTheme.themeHover : lightTheme.themeHover);
+  document.documentElement.style.setProperty("--color-theme-active", darkMode.value ? darkTheme.themeActive : lightTheme.themeActive);
+  document.documentElement.style.setProperty("--color-theme-contrast", darkMode.value ? darkTheme.themeContrast : lightTheme.themeContrast);
+  document.documentElement.style.setProperty("--color-theme-light", darkMode.value ? darkTheme.themeLight : lightTheme.themeLight);
+  document.documentElement.style.setProperty("--color-theme-light-hover", darkMode.value ? darkTheme.themeLightHover : lightTheme.themeLightHover);
+  document.documentElement.style.setProperty("--color-theme-light-active", darkMode.value ? darkTheme.themeLightActive : lightTheme.themeLightActive);
+  document.documentElement.style.setProperty("--color-theme-light-contrast", darkMode.value ? darkTheme.themeLightContrast : lightTheme.themeLightContrast);
 
-  document.documentElement.style.setProperty("--color-success", darkMode ? darkTheme.success : lightTheme.success);
-  document.documentElement.style.setProperty("--color-success-hover", darkMode ? darkTheme.successHover : lightTheme.successHover);
-  document.documentElement.style.setProperty("--color-success-active", darkMode ? darkTheme.successActive : lightTheme.successActive);
-  document.documentElement.style.setProperty("--color-success-contrast", darkMode ? darkTheme.successContrast : lightTheme.successContrast);
-  document.documentElement.style.setProperty("--color-success-light", darkMode ? darkTheme.successLight : lightTheme.successLight);
-  document.documentElement.style.setProperty("--color-success-text", darkMode ? darkTheme.successText : lightTheme.successText);
+  document.documentElement.style.setProperty("--color-success", darkMode.value ? darkTheme.success : lightTheme.success);
+  document.documentElement.style.setProperty("--color-success-hover", darkMode.value ? darkTheme.successHover : lightTheme.successHover);
+  document.documentElement.style.setProperty("--color-success-active", darkMode.value ? darkTheme.successActive : lightTheme.successActive);
+  document.documentElement.style.setProperty("--color-success-contrast", darkMode.value ? darkTheme.successContrast : lightTheme.successContrast);
+  document.documentElement.style.setProperty("--color-success-light", darkMode.value ? darkTheme.successLight : lightTheme.successLight);
+  document.documentElement.style.setProperty("--color-success-text", darkMode.value ? darkTheme.successText : lightTheme.successText);
 
-  document.documentElement.style.setProperty("--color-info", darkMode ? darkTheme.info : lightTheme.info);
-  document.documentElement.style.setProperty("--color-info-hover", darkMode ? darkTheme.infoHover : lightTheme.infoHover);
-  document.documentElement.style.setProperty("--color-info-active", darkMode ? darkTheme.infoActive : lightTheme.infoActive);
-  document.documentElement.style.setProperty("--color-info-contrast", darkMode ? darkTheme.infoContrast : lightTheme.infoContrast);
-  document.documentElement.style.setProperty("--color-info-light", darkMode ? darkTheme.infoLight : lightTheme.infoLight);
-  document.documentElement.style.setProperty("--color-info-text", darkMode ? darkTheme.infoText : lightTheme.infoText);
+  document.documentElement.style.setProperty("--color-info", darkMode.value ? darkTheme.info : lightTheme.info);
+  document.documentElement.style.setProperty("--color-info-hover", darkMode.value ? darkTheme.infoHover : lightTheme.infoHover);
+  document.documentElement.style.setProperty("--color-info-active", darkMode.value ? darkTheme.infoActive : lightTheme.infoActive);
+  document.documentElement.style.setProperty("--color-info-contrast", darkMode.value ? darkTheme.infoContrast : lightTheme.infoContrast);
+  document.documentElement.style.setProperty("--color-info-light", darkMode.value ? darkTheme.infoLight : lightTheme.infoLight);
+  document.documentElement.style.setProperty("--color-info-text", darkMode.value ? darkTheme.infoText : lightTheme.infoText);
 
-  document.documentElement.style.setProperty("--color-warning", darkMode ? darkTheme.warning : lightTheme.warning);
-  document.documentElement.style.setProperty("--color-warning-hover", darkMode ? darkTheme.warningHover : lightTheme.warningHover);
-  document.documentElement.style.setProperty("--color-warning-active", darkMode ? darkTheme.warningActive : lightTheme.warningActive);
-  document.documentElement.style.setProperty("--color-warning-contrast", darkMode ? darkTheme.warningContrast : lightTheme.warningContrast);
-  document.documentElement.style.setProperty("--color-warning-light", darkMode ? darkTheme.warningLight : lightTheme.warningLight);
-  document.documentElement.style.setProperty("--color-warning-text", darkMode ? darkTheme.warningText : lightTheme.warningText);
+  document.documentElement.style.setProperty("--color-warning", darkMode.value ? darkTheme.warning : lightTheme.warning);
+  document.documentElement.style.setProperty("--color-warning-hover", darkMode.value ? darkTheme.warningHover : lightTheme.warningHover);
+  document.documentElement.style.setProperty("--color-warning-active", darkMode.value ? darkTheme.warningActive : lightTheme.warningActive);
+  document.documentElement.style.setProperty("--color-warning-contrast", darkMode.value ? darkTheme.warningContrast : lightTheme.warningContrast);
+  document.documentElement.style.setProperty("--color-warning-light", darkMode.value ? darkTheme.warningLight : lightTheme.warningLight);
+  document.documentElement.style.setProperty("--color-warning-text", darkMode.value ? darkTheme.warningText : lightTheme.warningText);
 
-  document.documentElement.style.setProperty("--color-error", darkMode ? darkTheme.error : lightTheme.error);
-  document.documentElement.style.setProperty("--color-error-hover", darkMode ? darkTheme.errorHover : lightTheme.errorHover);
-  document.documentElement.style.setProperty("--color-error-active", darkMode ? darkTheme.errorActive : lightTheme.errorActive);
-  document.documentElement.style.setProperty("--color-error-contrast", darkMode ? darkTheme.errorContrast : lightTheme.errorContrast);
-  document.documentElement.style.setProperty("--color-error-light", darkMode ? darkTheme.errorLight : lightTheme.errorLight);
-  document.documentElement.style.setProperty("--color-error-text", darkMode ? darkTheme.errorText : lightTheme.errorText);
+  document.documentElement.style.setProperty("--color-error", darkMode.value ? darkTheme.error : lightTheme.error);
+  document.documentElement.style.setProperty("--color-error-hover", darkMode.value ? darkTheme.errorHover : lightTheme.errorHover);
+  document.documentElement.style.setProperty("--color-error-active", darkMode.value ? darkTheme.errorActive : lightTheme.errorActive);
+  document.documentElement.style.setProperty("--color-error-contrast", darkMode.value ? darkTheme.errorContrast : lightTheme.errorContrast);
+  document.documentElement.style.setProperty("--color-error-light", darkMode.value ? darkTheme.errorLight : lightTheme.errorLight);
+  document.documentElement.style.setProperty("--color-error-text", darkMode.value ? darkTheme.errorText : lightTheme.errorText);
 
-  document.documentElement.style.setProperty("--color-bgr", darkMode ? darkTheme.background : lightTheme.background);
-  document.documentElement.style.setProperty("--color-bgr100", darkMode ? darkTheme.background100 : lightTheme.background100);
-  document.documentElement.style.setProperty("--color-bgr200", darkMode ? darkTheme.background200 : lightTheme.background200);
-  document.documentElement.style.setProperty("--color-bgr300", darkMode ? darkTheme.background300 : lightTheme.background300);
-  document.documentElement.style.setProperty("--color-bgr400", darkMode ? darkTheme.background400 : lightTheme.background400);
-  document.documentElement.style.setProperty("--color-bgr500", darkMode ? darkTheme.background500 : lightTheme.background500);
-  document.documentElement.style.setProperty("--color-bgr600", darkMode ? darkTheme.background600 : lightTheme.background600);
-  document.documentElement.style.setProperty("--color-bgr700", darkMode ? darkTheme.background700 : lightTheme.background700);
-  document.documentElement.style.setProperty("--color-bgr800", darkMode ? darkTheme.background800 : lightTheme.background800);
-  document.documentElement.style.setProperty("--color-bgr900", darkMode ? darkTheme.background900 : lightTheme.background900);
+  document.documentElement.style.setProperty("--color-bgr", darkMode.value ? darkTheme.background : lightTheme.background);
+  document.documentElement.style.setProperty("--color-bgr100", darkMode.value ? darkTheme.background100 : lightTheme.background100);
+  document.documentElement.style.setProperty("--color-bgr200", darkMode.value ? darkTheme.background200 : lightTheme.background200);
+  document.documentElement.style.setProperty("--color-bgr300", darkMode.value ? darkTheme.background300 : lightTheme.background300);
+  document.documentElement.style.setProperty("--color-bgr400", darkMode.value ? darkTheme.background400 : lightTheme.background400);
+  document.documentElement.style.setProperty("--color-bgr500", darkMode.value ? darkTheme.background500 : lightTheme.background500);
+  document.documentElement.style.setProperty("--color-bgr600", darkMode.value ? darkTheme.background600 : lightTheme.background600);
+  document.documentElement.style.setProperty("--color-bgr700", darkMode.value ? darkTheme.background700 : lightTheme.background700);
+  document.documentElement.style.setProperty("--color-bgr800", darkMode.value ? darkTheme.background800 : lightTheme.background800);
+  document.documentElement.style.setProperty("--color-bgr900", darkMode.value ? darkTheme.background900 : lightTheme.background900);
 
-  document.documentElement.style.setProperty("--color-txt", darkMode ? darkTheme.text : lightTheme.text);
-  document.documentElement.style.setProperty("--color-txt100", darkMode ? darkTheme.text100 : lightTheme.text100);
-  document.documentElement.style.setProperty("--color-txt200", darkMode ? darkTheme.text200 : lightTheme.text200);
-  document.documentElement.style.setProperty("--color-txt300", darkMode ? darkTheme.text300 : lightTheme.text300);
-  document.documentElement.style.setProperty("--color-txt400", darkMode ? darkTheme.text400 : lightTheme.text400);
-  document.documentElement.style.setProperty("--color-txt500", darkMode ? darkTheme.text500 : lightTheme.text500);
-  document.documentElement.style.setProperty("--color-txt600", darkMode ? darkTheme.text600 : lightTheme.text600);
-  document.documentElement.style.setProperty("--color-txt700", darkMode ? darkTheme.text700 : lightTheme.text700);
-  document.documentElement.style.setProperty("--color-txt800", darkMode ? darkTheme.text800 : lightTheme.text800);
-  document.documentElement.style.setProperty("--color-txt900", darkMode ? darkTheme.text900 : lightTheme.text900);
-  document.documentElement.style.setProperty("--color-txt-dim", darkMode ? darkTheme.textDim : lightTheme.textDim);
-  document.documentElement.style.setProperty("--color-txt-stress", darkMode ? darkTheme.textStress : lightTheme.textStress);
-  document.documentElement.style.setProperty("--color-txt-link", darkMode ? darkTheme.textLink : lightTheme.textLink);
-  document.documentElement.style.setProperty("--color-txt-link-hover", darkMode ? darkTheme.textLinkHover : lightTheme.textLinkHover);
-  document.documentElement.style.setProperty("--color-txt-link-active", darkMode ? darkTheme.textLinkActive : lightTheme.textLinkActive);
-  document.documentElement.style.setProperty("--color-txt-link-contrast", darkMode ? darkTheme.textLinkContrast : lightTheme.textLinkContrast);
+  document.documentElement.style.setProperty("--color-txt", darkMode.value ? darkTheme.text : lightTheme.text);
+  document.documentElement.style.setProperty("--color-txt100", darkMode.value ? darkTheme.text100 : lightTheme.text100);
+  document.documentElement.style.setProperty("--color-txt200", darkMode.value ? darkTheme.text200 : lightTheme.text200);
+  document.documentElement.style.setProperty("--color-txt300", darkMode.value ? darkTheme.text300 : lightTheme.text300);
+  document.documentElement.style.setProperty("--color-txt400", darkMode.value ? darkTheme.text400 : lightTheme.text400);
+  document.documentElement.style.setProperty("--color-txt500", darkMode.value ? darkTheme.text500 : lightTheme.text500);
+  document.documentElement.style.setProperty("--color-txt600", darkMode.value ? darkTheme.text600 : lightTheme.text600);
+  document.documentElement.style.setProperty("--color-txt700", darkMode.value ? darkTheme.text700 : lightTheme.text700);
+  document.documentElement.style.setProperty("--color-txt800", darkMode.value ? darkTheme.text800 : lightTheme.text800);
+  document.documentElement.style.setProperty("--color-txt900", darkMode.value ? darkTheme.text900 : lightTheme.text900);
+  document.documentElement.style.setProperty("--color-txt-dim", darkMode.value ? darkTheme.textDim : lightTheme.textDim);
+  document.documentElement.style.setProperty("--color-txt-stress", darkMode.value ? darkTheme.textStress : lightTheme.textStress);
+  document.documentElement.style.setProperty("--color-txt-link", darkMode.value ? darkTheme.textLink : lightTheme.textLink);
+  document.documentElement.style.setProperty("--color-txt-link-hover", darkMode.value ? darkTheme.textLinkHover : lightTheme.textLinkHover);
+  document.documentElement.style.setProperty("--color-txt-link-active", darkMode.value ? darkTheme.textLinkActive : lightTheme.textLinkActive);
+  document.documentElement.style.setProperty("--color-txt-link-contrast", darkMode.value ? darkTheme.textLinkContrast : lightTheme.textLinkContrast);
 
-  document.documentElement.style.setProperty("--color-offer", darkMode ? darkTheme.offer : lightTheme.offer);
-  document.documentElement.style.setProperty("--color-supplier", darkMode ? darkTheme.supplier : lightTheme.supplier);
-  document.documentElement.style.setProperty("--color-accommodation", darkMode ? darkTheme.accommodation : lightTheme.accommodation);
+  document.documentElement.style.setProperty("--color-offer", darkMode.value ? darkTheme.offer : lightTheme.offer);
+  document.documentElement.style.setProperty("--color-supplier", darkMode.value ? darkTheme.supplier : lightTheme.supplier);
+  document.documentElement.style.setProperty("--color-accommodation", darkMode.value ? darkTheme.accommodation : lightTheme.accommodation);
+}
+
+// Whenever the current theme changes, update the theme variables
+watch(darkMode, (newValue, oldValue) => {
+  if (newValue === oldValue) return;
+  updateThemeVariables();
 });
+
+onMounted(() => updateThemeVariables());
 </script>
